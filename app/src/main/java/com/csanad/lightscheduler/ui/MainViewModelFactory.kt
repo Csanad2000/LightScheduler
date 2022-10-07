@@ -1,4 +1,4 @@
-package com.csanad.lightscheduler
+package com.csanad.lightscheduler.ui
 
 import android.content.Context
 import androidx.lifecycle.ViewModel

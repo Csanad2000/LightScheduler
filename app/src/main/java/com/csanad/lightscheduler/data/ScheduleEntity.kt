@@ -8,7 +8,7 @@ import com.csanad.lightscheduler.util.Constants.SCHEDULE_TABLE
 data class ScheduleEntity(
     var start: Long,
     var finish: Long,
-    var title: String = "",
+    var title: String? = null,
     var active: Boolean = true,
     @PrimaryKey(autoGenerate = true)
     var id: Int = 0

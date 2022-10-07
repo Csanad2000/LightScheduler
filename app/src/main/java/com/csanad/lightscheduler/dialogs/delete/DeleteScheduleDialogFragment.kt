@@ -22,10 +22,14 @@ class DeleteScheduleDialogFragment(
                     dismiss()
                 }
             builder.create()
-        } ?: throw IllegalStateException("Listener cannot be null")
+        } ?: throw IllegalStateException("There must be an activity")
     }
 
     private fun positive() {
-        listener.onDeletePositive(scheduleEntity)
+        listener.delete(scheduleEntity)
+    }
+
+    private fun finalize() {
+        listener.clear()
     }
 }

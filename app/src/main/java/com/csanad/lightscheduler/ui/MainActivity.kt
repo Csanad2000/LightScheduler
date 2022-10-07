@@ -1,16 +1,16 @@
-package com.csanad.lightscheduler
+package com.csanad.lightscheduler.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.lifecycle.ViewModelProvider
+import com.csanad.lightscheduler.R
 import com.csanad.lightscheduler.data.ScheduleEntity
 import com.csanad.lightscheduler.databinding.ActivityMainBinding
-import com.csanad.lightscheduler.dialogs.delete.DeleteListener
 import com.csanad.lightscheduler.dialogs.delete.DeleteScheduleDialogFragment
 
-class MainActivity : AppCompatActivity(),DeleteListener {
+class MainActivity : AppCompatActivity() {
     private lateinit var _viewModel: MainViewModel
     private val viewModel: MainViewModel
         get() = _viewModel
@@ -23,6 +23,12 @@ class MainActivity : AppCompatActivity(),DeleteListener {
         super.onCreate(savedInstanceState)
         _viewModel = ViewModelProvider(this, MainViewModelFactory(this))[MainViewModel::class.java]
         _binding = ActivityMainBinding.inflate(layoutInflater)
+        binding.recycler.adapter = ScheduleRecyclerViewAdapter(viewModel)
+        viewModel.current.observe(this) {
+            if (it is ScheduleEntity) {
+                openDeleteDialog(it)
+            }
+        }
         setContentView(R.layout.activity_main)
     }
 
@@ -44,13 +50,15 @@ class MainActivity : AppCompatActivity(),DeleteListener {
         }
     }
 
-    private fun openCreateDialog() {}
-
-    private fun openDeleteDialog(scheduleEntity: ScheduleEntity){
-        DeleteScheduleDialogFragment(this,scheduleEntity).show(supportFragmentManager,"delete")
+    //TODO actual dialog
+    private fun openCreateDialog() {
+        viewModel.insert(ScheduleEntity(0, 1, "a"))
     }
 
-    override fun onDeletePositive(scheduleEntity: ScheduleEntity) {
-        viewModel.delete(scheduleEntity)
+    private fun openDeleteDialog(scheduleEntity: ScheduleEntity) {
+        DeleteScheduleDialogFragment(viewModel, scheduleEntity).show(
+            supportFragmentManager,
+            "delete"
+        )
     }
 }

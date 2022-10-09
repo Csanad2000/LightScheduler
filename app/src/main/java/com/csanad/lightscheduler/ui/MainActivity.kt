@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.csanad.lightscheduler.R
 import com.csanad.lightscheduler.data.ScheduleEntity
 import com.csanad.lightscheduler.databinding.ActivityMainBinding
+import com.csanad.lightscheduler.dialogs.create.CreateScheduleDialogFragment
 import com.csanad.lightscheduler.dialogs.delete.DeleteScheduleDialogFragment
 
 class MainActivity : AppCompatActivity() {
@@ -50,15 +51,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    //TODO actual dialog
     private fun openCreateDialog() {
-        viewModel.insert(ScheduleEntity(0, 1, "a"))
+        CreateScheduleDialogFragment(viewModel)
+            .show(supportFragmentManager, "create")
     }
 
     private fun openDeleteDialog(scheduleEntity: ScheduleEntity) {
-        DeleteScheduleDialogFragment(viewModel, scheduleEntity).show(
-            supportFragmentManager,
-            "delete"
-        )
+        DeleteScheduleDialogFragment(viewModel, scheduleEntity)
+            .show(supportFragmentManager, "delete")
     }
 }

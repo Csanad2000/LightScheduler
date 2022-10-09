@@ -6,16 +6,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.csanad.lightscheduler.data.ScheduleDatabase
 import com.csanad.lightscheduler.data.ScheduleEntity
+import com.csanad.lightscheduler.dialogs.create.CreateListener
 import com.csanad.lightscheduler.dialogs.delete.DeleteListener
 import com.csanad.lightscheduler.ui.ScheduleRecyclerViewAdapter.ListProvider
 import kotlinx.coroutines.launch
 
-class MainViewModel(context: Context) : ViewModel(), ListProvider, DeleteListener {
+class MainViewModel(context: Context) : ViewModel(), ListProvider, DeleteListener, CreateListener {
     private val database = ScheduleDatabase.getInstance(context)
 
     val current = MutableLiveData<ScheduleEntity>()
 
-    fun insert(scheduleEntity: ScheduleEntity) {
+    override fun create(scheduleEntity: ScheduleEntity) {
         viewModelScope.launch {
             database.insertSchedule(scheduleEntity)
         }

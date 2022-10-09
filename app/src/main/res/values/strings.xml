@@ -1,9 +1,15 @@
 <resources>
-    <string name="app_name">LightScheduler</string>
+    <string name="app_name" translatable="false">LightScheduler</string>
     <string name="light_is_off">The light is off.</string>
     <string name="light_is_on">The light is on.</string>
     <string name="no_session_active">No session active.</string>
     <string name="session_active">A session is active.</string>
     <string name="switch_light">Switch light</string>
     <string name="cancel_session">Cancel session</string>
+    <string name="create_schedule">Create new schedule</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="from_hint">From</string>
+    <string name="to_hint">To</string>
+    <string name="title_hint">Title (optional)</string>
 </resources>

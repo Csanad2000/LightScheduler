@@ -2,6 +2,7 @@ package com.csanad.lightscheduler.dialogs.delete
 
 import android.app.AlertDialog
 import android.app.Dialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
 import com.csanad.lightscheduler.data.ScheduleEntity
@@ -16,10 +17,8 @@ class DeleteScheduleDialogFragment(
             builder.setMessage("Permanently delete schedule?")
                 .setPositiveButton("Yes") { dialog, id ->
                     positive()
-                    dismiss()
                 }
                 .setNegativeButton("No") { dialog, id ->
-                    dismiss()
                 }
             builder.create()
         } ?: throw IllegalStateException("There must be an activity")
@@ -29,7 +28,8 @@ class DeleteScheduleDialogFragment(
         listener.delete(scheduleEntity)
     }
 
-    private fun finalize() {
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
         listener.clear()
     }
 }
